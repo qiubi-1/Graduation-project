@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag</title>
+    <link href="../css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="container">
+        <div id="head">
+            <div id="logo"><img src="~/Images/shopping_logo.png" /></div>
+            <ul id="logomenu">
+                <li><a href="index.html">首页</a>▕</li>
+                <li><a href="register.html">注册</a>▕</li>
+                <li><a href="login.html">登录</a>▕</li>
+                <li><a href="#">购物车</a>▕</li>
+                <li><a href="#">会员中心</a>▕</li>
+                <li><a href="#">收藏夹</a>▕</li>
+                <li><a href="#">客服中心</a>▕</li>
+                <li><a href="#">留言板</a></li>
+            </ul>
+            <div style="clear:both"></div>
+            <div class="search">
+                <div class="leader">
+                    <div class="right" style="overflow: hidden; "> <a target="_blank" href='#' style="top: 0px;"><span>1</span>短袖1</a> <a target="_blank" href=#' style="top: 0px;"><span>2</span>皮鞋1</a> </div>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            @RenderBody()
+        </div>
+        <div id="foot">Copyright(c)2008-2010 FasionShopping时尚有限公司 鄂ICP备05009763号</div>
+    </div>
+</body>
+</html>

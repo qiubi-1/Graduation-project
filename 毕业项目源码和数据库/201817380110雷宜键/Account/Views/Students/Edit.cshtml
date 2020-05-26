@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using Account.Models
+@model Student
+<h2>编辑学生信息</h2>
+<form action="/Students/Edit" method="post">
+    <div class="form-horizontal">
+        @Html.Hidden("StuID", Model.StuID)
+        <h4>学生信息</h4>
+        <hr />
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StuName">姓名</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-required="姓名是必填项" id="StuName" name="StuName" type="text" value="@Model.StuName" />
+                @Html.ValidationMessage("StuName")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StuLoginName">登录名</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-required="登录名是必填项" id="StuLoginName" name="StuLoginName" type="text" value="@Model.StuLoginName" />
+                @Html.ValidationMessage("StuLoginName")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StuLoginPwd">密码</label>
+            <div class="col-md-10">
+                @*@Html.Password("", Model.StuLoginPwd);*@
+
+                <input class="form-control text-box single-line" data-val="true" data-val-required="密码是必填项" id="StuLoginPwd" name="StuLoginPwd" type="text" value="@Model.StuLoginPwd" />
+                @Html.ValidationMessage("StuLoginPwd")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StuSex">性别</label>
+            <div class="col-md-10">
+                @if (Model.StuSex == true)
+                {
+                    @Html.RadioButton("StuSex", "True", isChecked: true)@:男
+                    @Html.RadioButton("StuSex", "False")@:女
+                }
+                else
+                {
+                    @Html.RadioButton("StuSex", "True")@:男
+                    @Html.RadioButton("StuSex", "False", isChecked: true)@:女
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StuPhone">电话</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="StuPhone" name="StuPhone" type="text" value="@Model.StuPhone" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StuEmail">Email</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="StuEmail" name="StuEmail" type="text" value="@Model.StuEmail" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StuGrade">班级</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="StuGrade" name="StuGrade" type="text" value="@Model.StuGrade" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value=" 保存 " class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a href="/Students">返回学生列表</a>
+</div>
+
+

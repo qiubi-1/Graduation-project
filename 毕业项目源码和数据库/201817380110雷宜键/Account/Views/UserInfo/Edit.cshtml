@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+@using Account.Models
+@{
+    UserInfos user = ViewBag.user;
+    List<R_User_Roles> r = ViewBag.Rur;
+    List<Account.Models.Roles> list = ViewBag.list;
+    List<Departments> dlist = ViewBag.dlist;
+}
+<h2>新增</h2>
+<ul class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">用户列表</a></li>
+    <li class="active">修改</li>
+</ul>
+@using (Html.BeginForm("Edit", "UserInfo", FormMethod.Post, new { @class = "form-group", id = "form1", name = "form1", enctype = "multipart/form-data" }))
+{
+    <input type="hidden" name="ID" id="ID" value="@user.ID" />
+    <div class="form-group">
+        <label for="Name" class="control-label">姓名：</label>
+        <input type="text" name="Name" class="form-control" value="@user.Name" />
+        
+    </div>
+    <div class="form-group">
+        <label for="Departments" class="control-label">部门：</label>
+        <select name="departmentID" id="departmentID">
+            @foreach (var item in dlist)
+            {
+                if (user.DepartmentID == item.ID)
+                {
+                    <option value="@item.ID" selected>@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Sex" class="control-label">性别：</label>
+        @if (user.Sex == true)
+        {
+            @Html.RadioButton("Sex", "True", isChecked: true)@:男
+            @Html.RadioButton("Sex", "False")@:女
+        }
+        else
+        {
+            @Html.RadioButton("Sex", "True")@:男
+            @Html.RadioButton("Sex", "False", isChecked: true)@:女
+        }
+
+    </div>
+    <div class="form-group">
+        <label for="Account" class="control-label">账号：</label>
+        <input type="text" name="Account" class="form-control" value="@user.Account" />
+    </div>
+    <div class="form-group">
+        <label for="roles" class="control-label">角色：</label>
+        @foreach (var role in list)
+        {
+            var check = false;
+            foreach (var item in r)
+            {
+                if (item.RoleID == role.ID)
+                {
+                    check = true;
+                    break;
+                }
+            }
+            <input type="checkbox" name="roles" checked="@check" id="roles" value="@role.ID" />
+            @role.Name
+        }
+    </div>
+    <div class="form-group">
+        <label for="Pwd" class="control-label">密码：</label>
+        <input type="password" name="Pwd" class="form-control" value="@user.Pwd" />
+    </div>
+    <div class="form-group">
+        <label for="Photo" class="control-label">照片：</label>
+        <img src="~/Content/images/images/users/@user.Photo" height="50" />
+        <input type="hidden" id="Photo" name="Photo" value="@user.Photo" />
+        <input type="file" id="EPhoto" name="EPhoto" />
+    </div>
+    <div class="form-group">
+        <label for="Remark" class="control-label">备注：</label>
+        <input type="text" name="Remark" class="form-control" value="@user.Remark" />
+    </div>
+    <div class="form-group">
+        <a href="javascript:history.go(-1)">返回</a>
+        <input type="submit" class="btn btn-danger" value="保存" />
+    </div>
+}
+
+

@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "TeAnswer";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using PagedList.Mvc;
+@using PagedList;
+@using Account.Models;
+    
+@{
+    IPagedList<Answer> answers = ViewBag.answers;
+}
+    <link href="~/Content/Exam/page.css" rel="stylesheet" />
+<h2>审批试卷</h2>
+<table class="table">
+    <tr>
+        <th>学生姓名</th>
+        <th>试卷名称</th>
+        <th>批卷</th>
+        <th>分数</th>
+        <th>操作</th>
+    </tr>
+    @foreach (var item in answers.OrderByDescending(p=>p.AnswerTime))
+    {
+    <tr>
+        <td>@item.Student.StuName</td>
+        <td>@item.Paper.PaperName</td>
+        <td>
+            @if (item.AnswerState == 0)
+            {
+                @:考试中
+            }
+            else if (item.AnswerState == 1)
+            {
+                @:未批卷
+            }
+            else
+            {
+                @:已批卷
+            }
+        </td>
+        <td>@item.AnswerScore</td>
+        <td>
+            @if (item.AnswerState == 0)
+            {
+
+            }
+            else if (item.AnswerState == 1)
+            {
+                <a href="/Answers/TeAnswerDetail?AnswerID=@item.AnswerID">审卷</a>
+            }
+            else
+            {
+                <a href="/Answers/TeAnswerDetail?AnswerID=@item.AnswerID">查看详细</a>
+            }
+        </td>
+    </tr>
+    }
+
+</table>
+<div>
+    @*分页主要代码*@
+    总共：@answers.Count   当前：@answers.PageNumber ，每页：@answers.PageSize 行
+   @Html.PagedListPager(answers, Page => Url.Action("TeAnswer", new { Page }))
+</div>
+

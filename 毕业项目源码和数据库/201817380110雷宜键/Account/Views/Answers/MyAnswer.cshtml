@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "MyAnswer";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using Account.Models
+@{ 
+    Student stu = Session["Student"] as Student;
+    List<Answer> answers = ViewBag.answers;
+}
+<h2>我的考试 </h2>
+<table class="table">
+    <tr>
+        <th>学生姓名</th>
+        <th>试卷</th>
+        <th>批卷</th>
+        <th>分数</th>
+        <th>操作</th>
+    </tr>
+
+        @foreach (var item in answers)
+        {
+            <tr>
+                <td>@stu.StuName</td>
+                <td>@item.Paper.PaperExplain</td>
+                <td>
+                    @if (item.AnswerState == 0)
+                    {
+                        @:答题中
+                    }
+                    else if (item.AnswerState == 1)
+                    {
+                        @:未批卷
+                    }
+                    else
+                    {
+                        @:已批卷
+                    }
+                </td>
+                <td>@item.AnswerScore</td>
+                <td>
+                    @if (item.AnswerState == 2)
+                    {
+
+                    }
+                    <a href="/Answers/TeAnswerDetail?AnswerID=@item.AnswerID">查看详细</a>
+                    @if (item.AnswerState == 0)
+                    {
+                        <a href="/Answers/Index?PaperID=@item.PaperID&StuID=@stu.StuID">继续答题</a>
+                    }
+                </td>
+            </tr>
+        }
+    
+
+</table>

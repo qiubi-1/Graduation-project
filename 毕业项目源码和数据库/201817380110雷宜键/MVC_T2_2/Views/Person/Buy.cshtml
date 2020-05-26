@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Buy";
+}
+@using MVC_T2_2.Models;
+<h2>获得对象列表集合--买票</h2>
+<form action="" method="post">
+    <div class="form-group">
+        <input type="text" name="person[0].Name" placeholder="请输入姓名" />
+        <input type="text" name="person[0].IdCard" placeholder="请输入身份证号码" />
+        <input type="text" name="person[0].Phone" placeholder="请输入电话号码" />
+    </div>
+    <div class="form-group">
+        <input type="text" name="person[1].Name" placeholder="请输入姓名" />
+        <input type="text" name="person[1].IdCard" placeholder="请输入身份证号码" />
+        <input type="text" name="person[1].Phone" placeholder="请输入电话号码" />
+    </div>
+    <div class="form-group">
+        <input type="text" name="person[2].Name" placeholder="请输入姓名" />
+        <input type="text" name="person[2].IdCard" placeholder="请输入身份证号码" />
+        <input type="text" name="person[2].Phone" placeholder="请输入电话号码" />
+    </div>
+    <input type="submit" name="" value="登录" />
+</form>
+
+@if (ViewBag.List != null)
+{
+    foreach (var item in ViewBag.List as List<Person>)
+    {
+        <h3>@item.Name，@item.IdCard，@item.Phone</h3>
+    }
+}

@@ -1,0 +1,60 @@
+﻿@model Account.Models.Paper
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+
+<h2>查看试卷信息</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PaperName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaperName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaperExplain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaperExplain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaperTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaperTime)
+        </dd>
+
+    </dl>
+    <div>
+        @foreach (var item in Model.Topic.OrderBy(k=>k.TopicSort))
+        {
+            <ul>
+                <li>
+                    @item.TopicExplain （@item.TopicScore）
+                    @Html.ActionLink("修改题目", "Edit", "Topics1", new { id = item.TopicID }, null) &nbsp;
+                    @Html.ActionLink("删除题目","Delete","Topics1",new { id=item.TopicID},null)
+                    <ul>
+                        <li>@item.TopicA</li>
+                        <li>@item.TopicB</li>
+                        <li>@item.TopicC</li>
+                        <li>@item.TopicD</li>
+                    </ul>
+                </li>
+            </ul>
+        }
+    </div>
+</div>
+<p>
+    @Html.ActionLink("编辑", "Edit", new { id = Model.PaperID }) |
+    @Html.ActionLink("返回列表", "Index")
+</p>

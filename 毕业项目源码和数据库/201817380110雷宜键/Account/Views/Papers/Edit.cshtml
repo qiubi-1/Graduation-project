@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using Account.Models
+@model Paper
+<h2>修改试卷</h2>
+
+<form action="/Papers/Edit" method="post">
+    <div class="form-horizontal">
+        <h4>试卷信息</h4>
+        <hr />
+        @Html.Hidden("PaperID",Model.PaperID)
+        <div class="form-group">
+            <label class="control-label col-md-2" for="PaperName">试卷名</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-required="试卷名是必填项" id="PaperName" name="PaperName" type="text" value="@Model.PaperName" />
+                @Html.ValidationMessage("PaperName")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="PaperExplain">试卷说明</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-required="试卷说明是必填项" id="PaperExplain" name="PaperExplain" type="text" value="@Model.PaperExplain" />
+                @Html.ValidationMessage("PaperExplain")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="PaperTime">试卷时长</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-required="试卷时长是必填项" id="PaperTime" name="PaperTime" type="number" value="@Model.PaperTime" />
+                @Html.ValidationMessage("PaperTime")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value=" 保存 " class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a href="/Papers">返回试卷列表</a>
+</div>
+

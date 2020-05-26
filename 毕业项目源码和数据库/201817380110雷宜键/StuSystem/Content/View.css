@@ -1,0 +1,36 @@
+﻿* {
+    padding:0px;
+    margin:0px;
+    text-decoration:none;
+    list-style:none;
+
+}
+
+.top{
+    border:2px solid blue;
+    height:200px;
+}
+
+.center {
+    border:2px solid blue;
+    height:200px;
+    width:100%;
+
+}
+.left {
+    border: 2px solid red;
+    height: 200px;
+    width: 20%;
+    float: left;
+}
+.right {
+    border: 2px solid red;
+    height: 200px;
+    width: 75%;
+    float:left;
+}
+.bottom {
+    border: 2px solid purple;
+    height: 50px;
+    width:100%;
+}

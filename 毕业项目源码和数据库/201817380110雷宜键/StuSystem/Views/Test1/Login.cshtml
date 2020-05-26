@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+@using StuSystem.Models;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    @*<link href="~/Content/style.css" rel="stylesheet" />*@
+</head>
+<body>    
+    @*@Html.Partial("_PartialPage1")*@
+    <div>
+        @Html.SetUl(new[] { "首页", "新闻", "关注" })
+        @Html.SetUl(new[] { "首页", "新闻", "关注","关于" },"nav nav-tabs")
+    </div>
+</body>
+</html>

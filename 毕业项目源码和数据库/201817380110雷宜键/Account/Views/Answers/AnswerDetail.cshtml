@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "AnswerDetail";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using Account.Models
+@{ 
+    Student stu = Session["Student"] as Student;
+    Paper paper = ViewBag.paper as Paper;
+}
+
+<h2>在线考试</h2>
+<table>
+    <tr>
+        <td>
+            <h4>试卷描述</h4><hr />
+            试卷名称: @paper.PaperName <br />
+            试卷介绍: @paper.PaperExplain<br />
+            试卷时长: @paper.PaperTime (分钟)<br />
+        </td>
+        <td>
+            <h4>考生信息</h4><hr />
+            学生姓名: @stu.StuName <br />
+            学生班级: @stu.StuGrade<br />
+            <a href="/Answers/Hand/12">交卷</a><br />
+        </td>
+    </tr>
+</table>
+
+<fieldset>
+    <legend>答题区</legend>
+    <form action="/Answers/SubmitAnswer" data-ajax="true" data-ajax-method="Post" data-ajax-mode="replace" data-ajax-update="#topic" id="form0" method="post">
+        <div id="topic" style="border:1px solid gray">
+        </div>
+    </form>
+</fieldset>

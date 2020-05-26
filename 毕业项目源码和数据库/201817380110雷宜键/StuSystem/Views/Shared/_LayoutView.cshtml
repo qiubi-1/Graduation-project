@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/View.css" rel="stylesheet" />
+</head>
+<body>
+    @Html.Partial("_TopPartial")
+    <div class="center">
+        <div class="left">
+            左边
+        </div>
+        <div class="right">
+            @RenderBody()
+        </div>
+    </div>
+    <div class="bottom">
+        <div>
+            底部 版权
+        </div>
+    </div>
+</body>
+</html>

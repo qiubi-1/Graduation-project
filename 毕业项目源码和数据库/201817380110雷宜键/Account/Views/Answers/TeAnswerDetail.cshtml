@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "TeAnswerDetail";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using Account.Models
+@model Answer
+<style>
+    .showFlag {
+        line-height: 40px;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .NotAnswerFlag {
+        border: 1px solid #000000;
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+    }
+
+    .AnsweredFlag {
+        color: white;
+        background-color: #139ee5;
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+    }
+
+    .flex {
+        position: fixed;
+        border: 1px solid gray;
+        right: 20%;
+        top: 50%;
+        opacity: 0.8;
+        width: 210px;
+        border-radius: 5px;
+        background-color: #d7d6d6;
+    }
+
+        .flex ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+            .flex ul li {
+                padding: 0px;
+            }
+
+                .flex ul li a {
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 3px;
+                    border: 1px solid #000000;
+                    margin: 2px;
+                    text-align: center;
+                    line-height: 40px;
+                    display: block;
+                }
+
+    .NotAnswer {
+        background-color: #ffffff;
+        border: 1px solid #000000;
+    }
+
+    .Answered {
+        color: white;
+        background-color: #139ee5;
+    }
+
+    .submit {
+        margin: 5px auto;
+        border-radius: 5px;
+        text-align: center;
+        display: block;
+        width: 50px;
+        height: 30px;
+        line-height: 30px;
+        padding: 3px 5px;
+        background-color: #f53917;
+        color: white;
+    }
+
+        .submit:hover {
+            background-color: red;
+            color: white;
+        }
+</style>
+
+<h2>审卷</h2>
+<table>
+    <tr>
+        <td>
+            <h4>试卷描述</h4><hr />
+            试卷名称: @Model.Paper.PaperName <br />
+            试卷介绍: @Model.Paper.PaperExplain<br />
+            试卷时长: @Model.Paper.PaperTime (分钟)<br />
+        </td>
+        <td>。
+            <h4>考生信息</h4><hr />
+            学生姓名: @Model.Student.StuName <br />
+            学生班级: @Model.Student.StuGrade<br />
+        </td>
+    </tr>
+</table>
+<div>
+    <fieldset>
+        <legend>试卷内容</legend>
+        <ul style="list-style:inside;">
+            @foreach (var item in Model.Detail)
+            {
+                <li style="padding:20px;">
+                    <span style="font-weight:bold"> @item.Topic.TopicExplain </span> ( @item.Topic.TopicScore 分)
+
+                    <ul style="padding-left:30px;">
+
+                        <li>学生的答案是：@item.DetailAnswer </li>
+
+                        <li>正确答案是：@item.Topic.TopicAnswer</li>
+
+                        @if (item.DetailAnswer == item.Topic.TopicAnswer)
+                        {
+                            if (Model.AnswerScore==0)
+                            {
+                                Model.AnswerScore += item.Topic.TopicScore;
+                            }
+                            
+                        }
+                    </ul>
+                </li>
+
+            }
+        </ul>
+        @if (Model.AnswerState == 1)
+        {
+            <div style="font-size:30px;color:red;padding:10px 50px">
+                <a href="/Answers/Verify?AnswerID=@Model.AnswerID"> 提交审核 </a>
+            </div>
+        }
+        else if (Model.AnswerState == 2)
+        {
+            <div style="font-size:30px;color:red;padding:10px 50px">
+                <span> 分数：@Model.AnswerScore </span>
+            </div>
+        }
+        else
+        {
+
+        }
+
+
+    </fieldset>
+</div>

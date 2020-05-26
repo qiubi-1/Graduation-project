@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@using Account.Models
+@model List<UserInfos>
+
+    <ul class="breadcrumb">
+        <li><a href="#">首页</a></li>
+        <li class="active">用户列表</li>
+    </ul>
+<h2>用户管理</h2>
+<div class="row">
+    <div class="col-lg-6">
+        @Html.ActionLink("新增", "Add", "UserInfo", new { @class = "btn btn-primary" })
+        @Html.ActionLink("导入", "", "UserInfo", new { @class = "btn btn-primary" })
+        <a href="#" id="deleteBtn" class="btn panel-primary">批量删除</a>
+    </div>
+    <div class="col-lg-6">
+        <form method="post" action="" class="form-inline">
+            <label class="" for="department">部门：</label>
+            <select name="departmentID" id="departmentID">
+                <option value="0">====请输入====</option>
+                @foreach (var item in ViewBag.dlist as List<Departments>)
+                {
+                    if (item.ID.Equals(ViewBag.departmentID))
+                    {
+                          <option value="@item.ID" selected>@item.Name</option>
+                    }
+                    else
+                    {
+                          <option value="@item.ID">@item.Name</option>
+                    }
+
+                }
+            </select>
+            <label class="" for="department">姓名：</label>
+            <input type="text" name="name" class="form-control" value="@ViewBag.name" id="name" placeholder="请输入" />
+            <input type="submit" value="查询" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover table-condensed table-striped">
+    <tr>
+        <th>选择</th>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>部门</th>
+        <th>性别</th>
+        <th>账号</th>
+        <th>密码</th>
+        <th>图片</th>
+        <th>备注</th>
+        <th>该账号拥有的角色</th>
+        <th>设置角色</th>
+        <th>删除</th>
+        <th>修改</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td><input type="checkbox" name="UserID" id="UserID" value="@item.ID" /></td>
+    <td>@item.ID</td>
+    <td>@item.Name</td>
+    <td>@item.Departments.Name</td>
+    <td>
+        @if (item.Sex != null)
+        {
+            if (item.Sex == true)
+            {
+                @:男
+            }
+            else
+            {
+                @:女
+            }
+        }
+        else
+        {
+            @:未填
+        }
+
+    </td>
+    <td>@item.Account</td>
+    <td>@item.Pwd</td>
+    <td><img src="~/Content/images/images/users/@item.Photo" height="50" /></td>
+    <td>@item.Remark</td>
+    <td>
+        @foreach (var item1 in item.R_User_Roles)
+        {
+            @item1.Roles.Name <a href="/RUserRoles/Delete?RUserRolesID=+@item1.ID" onclick="return confirm('你确认要删除 @item.Name 的 @item1.Roles.Name')"><span class="glyphicon glyphicon-remove"></span></a>
+            <br />
+        }
+    </td>
+    <td><a href="/RUserRoles/SetRole?UserID=@item.ID">设置角色</a></td>
+    <td><a href="/UserInfo/Remove?UserID=@item.ID">删除</a></td>
+    <td><a href="/UserInfo/Edit?UserID=@item.ID">修改</a></td>
+</tr>
+    }
+</table>
+
+<div class="row">
+    <div class="col-lg-8 ">
+        <label>总共 @ViewBag.tatalCount 行</label>
+        <label>选择显示的行数</label>
+        <select name="pageCount" class="" id="pageCount" onchange="window.location = this.value;">
+            @{
+                int[] count = new[] { 5, 10, 20, 30, 40, 50 };
+            }
+            @foreach (var item in count)
+            {
+                if (item.Equals(ViewBag.pageCount))
+                {
+                    <option selected value="/UserInfo/Index?DepartmentID=@ViewBag.departmentID&name=@ViewBag.name&pageIndex=1&pageCount=@item">@item</option>
+                }
+                else
+                {
+                    <option value="/UserInfo/Index?DepartmentID=@ViewBag.departmentID&name=@ViewBag.name&pageIndex=1&pageCount=@item">@item</option>
+                }
+
+            }
+        </select>
+    </div>
+    
+    <div class="col-lg-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="/UserInfo/Index?DepartmentID=@ViewBag.departmentID&name=@ViewBag.name&pageIndex=1&pageCount=@ViewBag.pageCount">首页</a></li>
+                @if (ViewBag.pageIndex > 1)
+                {
+                     <li class="page-item"><a class="page-link" href="/UserInfo/Index?DepartmentID=@ViewBag.departmentID&name=@ViewBag.name&pageIndex=@(ViewBag.pageIndex - 1)&pageCount=@ViewBag.pageCount">上一页</a></li>
+                }
+                else 
+                {
+                     <li class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
+                }
+                <li class="page-item"><a class="page-link" href="#">@ViewBag.pageIndex</a></li>
+                @if (ViewBag.pageIndex < ViewBag.tatalPage)
+                {
+                     <li class="page-item"><a class="page-link" href="/UserInfo/Index?DepartmentID=@ViewBag.departmentID&name=@ViewBag.name&pageIndex=@(ViewBag.pageIndex + 1)&pageCount=@ViewBag.pageCount">下一页</a></li>
+                }
+                else
+                { 
+                     <li class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
+                }
+
+                <li class="page-item"><a class="page-link" href="/UserInfo/Index?DepartmentID=@ViewBag.departmentID&name=@ViewBag.name&pageIndex=@ViewBag.tatalPage&pageCount=@ViewBag.pageCount">末页</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#deleteBtn").click(function () {
+                var num = $("input[name='UserID']:checked").length;
+                if (num == 0) {
+                    alert("至少选择一项！");
+                    return;
+                }
+                //批量选择
+                if (confirm("确定要删除所选项目？")) {
+                    var list = new Array();
+                    //each循环
+                }
+            })
+        })
+    </script>
+    }

@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+
+@using Account.Models
+@model Topic
+
+<h2>删除考题</h2>
+
+<h3>是否确认删除?</h3>
+<div>
+    <h4>考题信息</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            考题描述
+        </dt>
+
+        <dd>
+            @Model.TopicExplain
+        </dd>
+
+        <dt>
+            该题分值
+        </dt>
+
+        <dd>
+            @Model.TopicScore
+        </dd>
+
+        <dt>
+            类型
+        </dt>
+
+        <dd>
+            @Model.TopicType
+        </dd>
+
+        <dt>
+            A选项
+        </dt>
+
+        <dd>
+            @Model.TopicA
+        </dd>
+
+        <dt>
+            B选项
+        </dt>
+
+        <dd>
+            @Model.TopicB
+        </dd>
+
+        <dt>
+            C选项
+        </dt>
+
+        <dd>
+            @Model.TopicC
+        </dd>
+
+        <dt>
+            D选项
+        </dt>
+
+        <dd>
+            @Model.TopicD
+        </dd>
+
+        <dt>
+            排序
+        </dt>
+
+        <dd>
+            @Model.TopicSort
+        </dd>
+
+        <dt>
+            正确答案
+        </dt>
+
+        <dd>
+            @Model.TopicAnswer
+        </dd>
+
+        <dt>
+            试卷名
+        </dt>
+
+        <dd>
+            @Model.Paper.PaperName
+        </dd>
+
+    </dl>
+
+    <form action="/Topics/Remove" method="post">
+        <div class="form-actions no-color">
+            @Html.Hidden("TopicID", Model.TopicID)
+            <input type="submit" value="确认删除" class="btn btn-default" /> |
+        </div>
+    </form>
+</div>
+

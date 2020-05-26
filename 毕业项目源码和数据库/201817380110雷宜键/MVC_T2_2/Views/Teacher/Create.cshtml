@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>添加老师信息</h2>
+<form action="/Teacher/Add" method="post">
+    <div class="row">
+        <div class="col-lg-12">
+            <input type="text" class="form-control" placeholder="请输入姓名" name="TeacherName" value="" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <input type="text" class="form-control" placeholder="请输入账号" name="TeacherLoginName" value="" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <input type="password" class="form-control" placeholder="请输入密码" name="TeacherLoginPwd" value="" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <input type="text" class="form-control" placeholder="请输入电话" name="TeacherPhone" value="" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <input type="text" class="form-control" placeholder="请输入邮箱地址" name="TeacherEmail" value="" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <input type="submit" class="btn btn-primary form-control"  value="提交" />
+        </div>
+    </div>
+</form>
+

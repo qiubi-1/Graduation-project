@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using Account.Models
+@model List<Teacher>
+<h2>教师列表</h2>
+
+<p>
+    <a href="/Teachers/Create">添加新老师</a>
+    <a href="#" id="deleteBtn" class="btn btn-primary">批量删除</a>
+</p>
+<table class="table" id="table_1">
+    <tr>
+        <th width="50">
+            <input type="checkbox" name="checkAll" id="checkAll" value="" />
+            全选
+        </th>
+        <th>
+            姓名
+        </th>
+        <th>
+            登录名
+        </th>
+        <th>
+            密码
+        </th>
+        <th>
+            电话
+        </th>
+        <th>
+            Email
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <input type="checkbox" name="TeacherID" value="@item.TeacherID" />
+            </td>
+            <td>
+                @item.TeacherName
+            </td>
+            <td>
+                @item.TeacherLoginName
+            </td>
+            <td>
+                @item.TeacherLoginPwd
+            </td>
+            <td>
+                @item.TeacherPhone
+            </td>
+            <td>
+                @item.TeacherEmail
+            </td>
+            <td>
+                <a href="/Teachers/Edit/@item.TeacherID">编辑</a> |
+                <a href="/Teachers/Details?TeacherID=@item.TeacherID">详情</a> |
+                <a href="/Teachers/Delete?TeacherID=@item.TeacherID" onclick="return confirm('你确认要删除吗？')">删除</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#checkAll").click(function () {
+                //input:checkbox找到所有input标签类型为复选框的
+                //gt(0)  
+                //$("input:checkbox:gt(0)".prop("checked", $(this).prop("checked"));
+                $("input[name='TeacherID']").prop("checked", $(this).prop("checked"));
+            })
+            $("#deleteBtn").click(function () {
+                //获取选中的条目
+                var num = $("input[name='TeacherID']:checked");
+                //如果条目数=0提示错误信息，返回
+                if (num.length == 0) {
+                    alert("至少选择一项！");
+                    return;
+                }
+                //获得选中条目的每一项的值，并存储
+                var teacherID = new Array();
+                //each循环
+                num.each(function () {
+                    //push往后追加
+                    teacherID.push($(this).val());
+                })
+                //通过异步请求，执行删除
+                $.ajax({
+                    type: "Post",
+                    url: "/Teachers/DeleteAll",
+                    data: {
+                        "deleteList": teacherID.toString()
+                    },
+                    dataType: "text",
+                    success: function (data) {
+                        if (data == "1") {
+                            alert("删除成功");
+                        }
+                        else {
+                            alert("删除失败");
+                        }
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert("请求失败！");
+                    }
+                });
+                //批量选择
+                //if (confirm("确定要删除所选项目？")) {
+                //    var list = new Array();
+                //    //each循环
+                //    $("input[name='TeacherID']:checked").each(function () {
+                //        list.push($(this).val());
+                //    });
+                //    $.ajax({
+                //        type: "post",
+                //        url: "/Teachers/DeleteAll",
+                //        data: {
+                //            "deleteList": list.toString()
+                //        },
+                //        dataType: "text",
+                //        success: function (data) {
+                //            console.log
+                //            alert(data);
+                //            window.location.reload();
+                //        },
+                //        error: function () {
+                //            alert("失败");
+                //        }
+                //    });
+            });
+            });
+    </script>
+    }

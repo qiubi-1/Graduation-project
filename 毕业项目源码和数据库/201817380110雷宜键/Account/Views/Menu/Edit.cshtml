@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+@using Account.Models;
+@model Menus
+    <ul class="breadcrumb">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">菜单管理</a></li>
+        <li class="active">修改菜单</li>
+    </ul>
+@using (Html.BeginForm("Edit", "Menu", FormMethod.Post, new { @class = "form-group", id = "form1", name = "form1" }))
+{
+    @Html.Hidden("ID");
+    <div class="form-group">
+        <label for="Name" class="control-label">名称：</label>
+        @*<input type="text" name="Name" id="Name" class="form-control" />*@
+        @Html.TextBox("Name",null,new { @class="form-control"})
+    </div>
+    <div class="form-group">
+        <label for="Url" class="control-label">地址：</label>
+        @*<input type="text" name="Url" id="Url" class="form-control" />*@
+        @Html.TextBox("Url", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Remark" class="control-label">备注：</label>
+        @*<input type="text" name="Remark" class="form-control" />*@
+        @Html.TextBox("Remark", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Pid" class="control-label">Pid(上级菜单ID)：</label>
+        @*<input type="text" name="Pid" id="Pid" class="form-control" />*@
+        @Html.TextBox("Pid", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <a href="javascript:history.go(-1)">返回</a>
+        <input type="submit" class="btn btn-primary" value="修改" />
+    </div>
+}

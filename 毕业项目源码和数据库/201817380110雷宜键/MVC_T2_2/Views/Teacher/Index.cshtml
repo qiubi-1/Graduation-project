@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@* 引用老师类所在的命名空间 *@
+@using MVC_T2_2.Models;
+@* 将我们传值过来的model参数转为List<Teacher>类型 *@
+@model List<Teacher>
+@{
+    List<Teacher> list = ViewData["list"] as List<Teacher>;
+    int count = list.Count;
+}
+<span id="count" style="display:none">@count</span>
+
+
+@*@Html.ActionLink("添加老师", "Create")
+        <a href="/Teacher/Create"></a>
+
+    @Html.ActionLink("添加学生", "Create", "Student")
+        <a href="/Student/Create"></a>
+
+    @Html.ActionLink("添加老师", "Create", "Teacher", new { @class = "btn btn-primary", target = "_blank" })
+
+    <a href="/Teacher/Create" class="btn btn-primary" target="_blank">添加老师</a>
+
+    @Html.ActionLink("添加老师", "Create", "Teacher", new { id = 1 }, new { @class = "btn btn-primary", target = "_blank" })
+
+    <a href="/Teacher/Create/1" class="btn btn-primary" target="_blank">添加老师</a>
+*@
+
+@*@using (Html.BeginForm("Index", "Teacher", FormMethod.Post))
+{
+    <label>姓名：</label>
+    <input type="text" class="form-control" name="teaName" placeholder="请输入姓名" style="display:inline" />
+    <label>账号：</label>
+    <input type="text" class="form-control" name="teaLoginName" placeholder="请输入账号" style="display:inline" />
+    <input type="submit" name="" value="提交" class="btn" />
+}*@
+<form action="Index" method="post">
+    <span>姓名：</span>
+    @Html.TextBox("name", null, new { placeholder = "请输入姓名", @class = "form-control" })
+    <input type="submit" name="" value="提交" class="btn" />
+</form>
+@Html.ActionLink("添加老师信息", "Create", "Teacher", new { @class = "btn btn-primary", target = "_black" })
+<h2>老师信息列表</h2>
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>账号</th>
+        <th>电话</th>
+        <th>邮箱地址</th>
+        <th>操作</th>
+    </tr>
+    @* Model用来接收参数 *@
+    @*@foreach (var item in ViewBag.list  Model )
+        {
+            <tr>
+                <td>@item.TeacherID</td>
+                <td>@item.TeacherName</td>
+                <td>@item.TeacherLoginName</td>
+                <td>@item.TeacherPhone</td>
+                <td>@item.TeacherEmail</td>
+            </tr>
+        }*@
+
+    @foreach (var item in ViewData["list"] as List<Teacher>)
+    {
+        <tr>
+            <td>@item.TeacherID</td>
+            <td>@item.TeacherName</td>
+            <td>@item.TeacherLoginName</td>
+            <td>@item.TeacherPhone</td>
+            <td>@item.TeacherEmail</td>
+            <td>
+                @Html.ActionLink("修改", "Edit", "Teacher", new { id = item.TeacherID }, new { @class = "btn btn-primary", target = "_black" })
+                <a href="/Teacher/ShowInfo?id=@item.TeacherID" class="btn btn-default">查看</a>
+                <a href="/Teacher/Delete/@item.TeacherID" class="btn btn-danger" onclick="return confirm('你确定要删除 @item.TeacherName 的信息吗？')">删除</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@*@section scripts{
+    <script type="text/javascript">
+        //var span = document.getElementById("count").innerText;
+        var span = $("#count").text();
+        alert("查询到了" + span + "位老师的信息");
+    </script>
+    }*@

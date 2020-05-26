@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using Account.Models
+@{ 
+    Paper p = ViewBag.p;
+    List<Topic> list = ViewBag.list;
+    var money = 0;
+}
+<h2>试卷详情</h2>
+<div>
+    @Html.Hidden("PaperID",p.PaperID)
+    <fieldset>
+        <legend>试卷信息</legend>
+        <dl class="dl-horizontal">
+            <dt> 试卷名</dt>
+            <dd>@p.PaperName</dd>
+            <dt> 试卷说明</dt>
+            <dd> @p.PaperExplain</dd>
+            <dt> 试卷时长</dt>
+            <dd> @p.PaperTime 分钟</dd>
+            <dt> 试卷总分</dt>
+            <dd>
+                @foreach (var item in list)
+                {
+                    money += item.TopicScore;
+                }
+                @{ 
+                    <label>@money 分</label>                    
+                }
+            </dd>
+        </dl>
+    </fieldset>
+
+    <fieldset>
+        <legend>试卷内容</legend>
+        <ul style="list-style:inside;">
+            @foreach (var item in list.OrderBy(k=>k.TopicSort))
+            {
+                <li style="padding:20px;">
+                    <span style="font-weight:bold"> @item.TopicExplain </span> ( @item.TopicScore 分)
+                    <a href="/Topics/Delete?TopicID=@item.TopicID">删除考题</a> -
+                    <a href="/Topics/Edit?TopicID=@item.TopicID">修改考题</a>
+
+                    <ul style="padding-left:30px;">
+                        @if (item.TopicType == 1)
+                        {
+                            <li>A.@item.TopicA </li>
+                            <li>B.@item.TopicB</li>
+                            <li>C.@item.TopicC</li>
+                            <li>D.@item.TopicD</li>
+                        }
+                        else if (item.TopicType == 2)
+                        {
+                            <li>该题为判断题</li>
+                        }
+                        else if(item.TopicType == 3)
+                        {
+                            <li>该题为问答题</li>
+                        }
+                    </ul>
+                </li>
+            }
+
+        </ul>
+    </fieldset>
+
+</div>
+<p>
+    <a href="/Topics/Create?PaperID=@p.PaperID">添加考题</a> |
+    <a href="/Papers/Edit?PaperID=@p.PaperID">修改试卷信息</a> |
+    <a href="/Papers">返回试卷列表</a>
+</p>

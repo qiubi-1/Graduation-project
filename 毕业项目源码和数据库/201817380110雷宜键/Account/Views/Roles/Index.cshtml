@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@using Account.Models
+@model List<Account.Models.Roles>
+<ul class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li class="active">角色列表</li>
+</ul>
+@using (Html.BeginForm("Add", "Roles", FormMethod.Post, new { @class = "form-group" }))
+{
+    <label class="" for="Name">角色名称：</label>
+    <input type="text" name="Name" class="form-control" style="display:inline" id="Name" placeholder="请输入角色名称" />
+    <label class="form-inline" for="Remark">备注：</label>
+    <input type="text" name="Remark" class="form-control form-inline" style="display:inline" id="Remark" placeholder="请输入备注" />
+    <input type="submit" value="添加" class="btn btn-primary" />
+}
+<br />
+@using (Html.BeginForm("Index", "Roles", FormMethod.Post, new { @class = "form-group" }))
+{
+    <label class="" for="Name">角色名称：</label>
+    <input type="text" name="Name" class="form-control" id="Name" style="display:inline" value="@ViewBag.name" placeholder="请输入角色名称" />
+    <input type="submit" value="查询" class="btn btn-primary" />
+}
+<table class="table table-bordered table-hover table-condensed table-striped">
+    <tr>
+        <th>编号</th>
+        <th>名称</th>
+        <th>备注</th>
+        <th>拥有的用户</th>
+        <th>操作菜单</th>
+        <th>设置</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Name</td>
+            <td>@item.Remark</td>
+            <td>
+                @foreach (var item1 in item.R_User_Roles)
+                {
+                    @item1.UserInfos.Name
+                    <br />
+                }
+            </td>
+            <td>
+                @foreach (var item2 in item.R_Role_Menus)
+                {
+                    @item2.Menus.Name<a href="/Roles/Delete?RRoleMenusID=+@item2.ID" onclick="return confirm('你确认要删除吗？')"><span class="glyphicon glyphicon-remove"></span></a>
+                    <br />
+                }
+            </td>
+            <td><a href="/Roles/Edit?id=@item.ID" class="btn btn-primary">设置菜单</a><a href="/Roles/Remove?id=@item.ID" class="btn btn-danger">删除</a></td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = null;
+    int a = 1;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @* 行内表达式 *@
+        <h2>@DateTime.Now</h2>
+
+        <h2>@a</h2>
+    </div>
+    @* 单行代码块 *@
+    @* @{}多行代码块 *@
+    @{
+        var content = DateTime.Now.TimeOfDay;
+        var myMessage = "你好";
+        var result = myMessage + "现在是：" + content;
+        <font color="purple">@result</font>
+
+    }
+    <font color="red">@myMessage</font>
+    @* 判断 *@
+    @{
+        var isok = true;
+    }
+    @if (isok)
+    {
+        @*@:好*@
+        @("好！很好")
+    }
+    else
+    {
+        @*@:错*@
+        @("错！错的离谱")
+    }
+    @* for/foreach与html混合编写 *@
+    @{
+        var list = new List<string>() { "张三", "李四", "王五" };
+    }
+    <ul>
+        @for (int i = 0; i < list.Count; i++)
+        {
+            <li><a href="#">@list[i]</a></li>
+        }
+    </ul>
+    <hr />
+    <ul>
+        @foreach (var item in list)
+        {
+            <li><a href="#">@item</a></li>
+        }
+    </ul>
+    <hr />
+    @using MVC_T2_1.Models;
+    @{
+        List<Users> list1 = new List<Users>(){
+            new Users() { UserName="张三",Age=48,Email="1534@qq.com"},
+            new Users() { UserName="李四",Age=18,Email="734@qq.com"},
+        };
+    }
+    <table border="1">
+        <tr>
+            <th>用户名</th>
+            <th>年龄</th>
+            <th>邮箱</th>
+        </tr>
+        @foreach (var item in list1)
+        {
+            <tr><td>@item.UserName</td><td>@item.Age</td><td>@item.Email</td></tr>
+        }
+    </table>
+</body>
+</html>

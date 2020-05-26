@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StuSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Grades">
+    <Key>
+      <PropertyRef Name="GradesID" />
+    </Key>
+    <Property Name="GradesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GradesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Student_Grades" FromRole="Grades" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StuID" />
+    </Key>
+    <Property Name="StuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sex" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="Grades" Type="Int32" />
+    <Property Name="Intro" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Agreest" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Grades1" Relationship="Self.FK_Student_Grades" FromRole="Student" ToRole="Grades" />
+    <Property Name="Password2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_Student_Grades">
+    <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grades">
+        <PropertyRef Name="GradesID" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="Grades" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StuSystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Grades" EntityType="Self.Grades" />
+    <EntitySet Name="Student" EntityType="Self.Student" />
+    <AssociationSet Name="FK_Student_Grades" Association="Self.FK_Student_Grades">
+      <End Role="Grades" EntitySet="Grades" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

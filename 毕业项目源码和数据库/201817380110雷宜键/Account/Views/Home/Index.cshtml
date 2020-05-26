@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="carousel slide" id="slidershow" data-ride="carousel" data-interval="2000">
+    <!--计数器-->
+    <ol class="carousel-indicators">
+        <li class="active" data-target="#slidershow" data-slide-to="0"></li>
+        <li data-target="#slidershow" data-slide-to="1"></li>
+        <li data-target="#slidershow" data-slide-to="2"></li>
+    </ol>
+    <!--图片容器-->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="~/Content/images/images/users/1534262955889.png" />
+            <!--添加对应标题和内容-->
+            <div class="carousel-caption">
+                <h4>图一</h4>
+                <span>内容</span>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/images/images/users/1534262955889.png" />
+            <!--添加对应标题和内容-->
+            <div class="carousel-caption">
+                <h4>图二</h4>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/images/images/users/1534262955889.png" />
+            <!--添加对应标题和内容-->
+            <div class="carousel-caption">
+                <h4>图三</h4>
+            </div>
+        </div>
+        <!--轮播导航-->
+        <a href="#slidershow" data-slide="prev" class="left carousel-control" role="button">
+            <img src="~/Content/images/images/users/timg (5).jpg" height="30" style="margin-top:300px" />
+        </a>
+        <a href="#slidershow" data-slide="next" class="right carousel-control" role="button">
+            <img src="~/Content/images/images/users/timg (5).jpg" height="30" style="margin-top:300px" />
+        </a>
+    </div>
+</div>
+<div class="modal-dialog" style="margin-top: 10%;">
+    <form action="/Home/Index" method="post" class="form-horizontal" id="form1">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title text-center" id="myModalLabel">登录</h4>
+            </div>
+            <div class="modal-body" id="model-body">
+                <div class="form-group" style="margin-left:150px">
+
+                    <input type="text" name="Account" id="Account" class="form-control" placeholder="账号" />
+                </div>
+                <div class="form-group" style="margin-left:150px">
+                    <input type="password" name="Pwd" id="Pwd" class="form-control" placeholder="密码" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" style="margin-right:270px" value="登录" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#form1").validate({
+                rules: {
+                    Account: { required: true },
+                    Pwd: { required: true }
+                },
+                messages: {
+                    Account: { required: "请输入账号" },
+                    Pwd: { required: "请输入密码" }
+                }
+
+            })
+        })
+    </script>
+}

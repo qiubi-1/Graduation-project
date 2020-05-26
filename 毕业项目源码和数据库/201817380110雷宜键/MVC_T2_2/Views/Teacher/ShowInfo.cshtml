@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "ShowInfo";
+}
+@using MVC_T2_2.Models;
+@model Teacher
+<h2>查看老师信息</h2>
+@*<p>编号：@ViewBag.teacher.TeacherID</p>
+<p>姓名：@ViewBag.teacher.TeacherName</p>
+<p>账号：@ViewBag.teacher.TeacherLoginName</p>
+<p>电话：@ViewBag.teacher.TeacherPhone</p>
+<p>邮箱地址：@ViewBag.teacher.TeacherEmail</p>*@
+<p>编号：@Model.TeacherID</p>
+<p>姓名：@Model.TeacherName</p>
+<p>账号：@Model.TeacherLoginName</p>
+<p>电话：@Model.TeacherPhone</p>
+<p>邮箱地址：@Model.TeacherEmail</p>

@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+}
+@using Account.Models
+@{
+    List<Account.Models.Roles> list = ViewBag.list;
+    List<Departments> dlist = ViewBag.dlist;
+}
+<ul class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">用户列表</a></li>
+    <li class="active">新增</li>
+</ul>
+@using (Html.BeginForm("Add", "UserInfo", FormMethod.Post, new { @class = "form-group", id = "form1", name = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label for="Name" class="control-label">姓名：</label>
+        @Html.TextBox("Name", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Departments" class="control-label">部门：</label>
+        <select name="departmentID" id="departmentID">
+            @foreach (var item in dlist)
+            {
+                <option value="@item.ID">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Sex" class="control-label">性别：</label>
+        @Html.RadioButton("Sex", "True", isChecked: true)男
+        @Html.RadioButton("Sex", "False")女
+    </div>
+    <div class="form-group">
+        <label for="Account" class="control-label">账号：</label>
+        @Html.TextBox("Account", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="roles" class="control-label">角色：</label>
+        @foreach (var role in list)
+        {
+            <input type="checkbox" name="roles" id="roles" value="@role.ID" />
+            @role.Name
+        }
+    </div>
+    <div class="form-group">
+        <label for="Pwd" class="control-label">密码：</label>
+        @Html.Password("Pwd", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Photo" class="control-label">照片：</label>
+        <input type="file" id="Photo" name="Photo" />
+    </div>
+    <div class="form-group">
+        <label for="Remark" class="control-label">备注：</label>
+        @Html.TextBox("Remark", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <a href="javascript:history.go(-1)">返回</a>
+        <input type="submit" class="btn btn-danger" value="保存" />
+    </div>
+}

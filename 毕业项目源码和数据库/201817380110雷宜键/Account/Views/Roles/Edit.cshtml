@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+@using Account.Models;
+@{ 
+    Account.Models.Roles roles = ViewBag.roles;
+    List<Menus> menus = ViewBag.menus;
+    List<R_Role_Menus> list = ViewBag.list;
+}}
+    <ul class="breadcrumb">
+        <li><a href="#">首页</a></li>
+        <li><a href="#">角色列表</a></li>
+        <li class="active">菜单设置</li>
+    </ul>
+<h2>正在为 @roles.Name 设置菜单权限</h2>
+<form action="" method="post">
+    @foreach (var item in menus)
+    {
+        var check = false;
+        foreach (var item1 in list)
+        {
+            if (item.ID == item1.MenuID)
+            {
+                check = true;
+                break;
+            }
+
+        }
+        <input type="checkbox" name="roles" id="roles" checked="@check" value="@item.ID" />
+        @item.Name
+        <br />
+    }
+    <input type="hidden" name="id" id="id" value="@roles.ID" />
+    <input type="submit" class="btn btn-primary" value="提交" />
+</form>
+

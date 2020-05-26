@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@using Account.Models
+@model List<Menus>
+<ul class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li class="active">菜单管理</li>
+</ul>
+<div class="row">   
+        <div class="col-lg-8">
+            @Html.ActionLink("新增", "Add", "Menu", new { @class = "btn btn-primary" })
+        </div>
+        <div class="col-lg-6">
+            <form method="post" action="" class="form-inline">
+                <label class="" for="department">菜单名称：</label>               
+                <input type="text" name="name" class="form-control" value="@ViewBag.name" id="name" placeholder="请输入菜单名称" />
+                <input type="submit" value="查询" class="btn btn-primary" />
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover table-condensed table-striped">
+        <tr>
+            <th>编号</th>
+            <th>名称</th>
+            <th>备注</th>
+            <th>Pid(上级菜单ID)</th>
+            <th>Url</th>
+            <th>删除</th>
+            <th>修改</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.Name</td>
+                <td>@item.Remark</td>
+                <td>@item.Pid</td>
+                <td>@item.Url</td>
+                <td><a href="/Menu/Remove/@item.ID" class="btn btn-danger" onclick="return confirm('是否删除'">删除</a></td>
+                <td><a href="/Menu/Edit?ID=@item.ID" class="btn btn-primary">修改</a></td>
+            </tr>
+        }
+    </table>

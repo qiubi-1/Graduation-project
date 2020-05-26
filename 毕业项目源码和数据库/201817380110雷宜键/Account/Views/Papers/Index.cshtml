@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+@using Account.Models
+@model List<Paper>
+<h2>试卷列表</h2>
+
+<p>
+    <a href="/Papers/Create">添加新试卷</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            试卷名
+        </th>
+        <th>
+            试卷说明
+        </th>
+        <th>
+            试卷时长
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.PaperName
+            </td>
+            <td>
+                @item.PaperExplain
+            </td>
+            <td>
+                @item.PaperTime
+            </td>
+            <td>
+                <a href="/Topics/Create?PaperID=@item.PaperID">添加考题</a> |
+                <a href="/Papers/Edit?PaperID=@item.PaperID">编辑</a> |
+                <a href="/Papers/Details?PaperID=@item.PaperID">详情</a> |
+                <a href="/Papers/Delete?PaperID=@item.PaperID" onclick="return confirm('你确认要删除吗？')">删除</a>
+            </td>
+        </tr>
+    }
+
+</table>
